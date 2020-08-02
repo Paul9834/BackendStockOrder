@@ -1,0 +1,40 @@
+package com.paul9834.order.demo.service
+
+import com.paul9834.order.demo.model.Product
+import com.paul9834.order.demo.repository.StockRepository
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Service
+
+
+@Service
+class StockService(private val repo: StockRepository) {
+
+    // Obtiene la lista de todos los productos //
+
+    fun getProducts(): List<Product> = repo.findAll()
+
+    // Agrega un producto //
+    fun addProduct(product: Product): ResponseEntity<Product> =
+            ResponseEntity.ok(repo.save(product))
+
+
+    // Obtiene un producto por id
+    // el método 'map' se utiliza para asignar cada elemento a su resultado correspondiente
+    // Si desea cambiar un elemento de su lista, debe recopilar los resultados
+    // en una nueva lista. utilizando el método .collect().
+
+    fun getProductById(id: Long): ResponseEntity<Product> =
+            repo.findById(id).map { product ->
+                ResponseEntity.ok(product)
+            }.orElse(ResponseEntity.notFound().build())
+
+    fun deleteProduct(productId: Long): ResponseEntity<Void> =
+
+            repo.findById(productId).map { product ->
+                repo.delete(product)
+                ResponseEntity<Void>(HttpStatus.ACCEPTED)
+            }.orElse(ResponseEntity.notFound().build())
+
+
+}

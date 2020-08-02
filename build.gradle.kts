@@ -23,6 +23,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+    runtimeOnly("mysql:mysql-connector-java")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+
 }
 
 tasks.withType<Test> {
