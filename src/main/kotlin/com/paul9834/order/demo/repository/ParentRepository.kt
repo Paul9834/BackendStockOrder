@@ -1,18 +1,14 @@
 package com.paul9834.order.demo.repository
 
-
-import com.paul9834.order.demo.model.Item
+import com.paul9834.order.demo.model.Invoice
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import javax.transaction.Transactional
 
-
 @Repository
 @Transactional(Transactional.TxType.MANDATORY) // Investigar que es //
 
-interface StockRepository : JpaRepository <Item, Long>  {
-
+interface ParentRepository : JpaRepository <Invoice, Long>  {
 
 }
-
 
